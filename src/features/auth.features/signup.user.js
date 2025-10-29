@@ -76,7 +76,7 @@ export const code_repeat=createAsyncThunk(
              toast.success(t('success.codeSent'))
              return response.data
         } catch (error) {
-            return rejectWithValue(t('serverError.eroor'))
+            return rejectWithValue(t('serverError.error'))
 
         }
 
