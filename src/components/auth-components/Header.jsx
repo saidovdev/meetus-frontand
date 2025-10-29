@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Menu, X, Globe } from "lucide-react";
 import LanguageModal from "./LanguageModal";
-
+import { useNavigate } from "react-router-dom";
+import router from "../../config/router.app";
 export default function Header() {
   const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
+    const navigate=useNavigate()
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   const getCurrentLanguageName = () => {
@@ -75,7 +76,7 @@ export default function Header() {
             <button className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-200">
               {t('nav.login')}
             </button>
-            <button className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white px-6 py-2 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 font-medium">
+            <button onClick={()=>navigate(router.selectType)} className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white px-6 py-2 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 font-medium">
               {t('nav.signup')}
             </button>
           </div>
@@ -140,7 +141,7 @@ export default function Header() {
                 <button className="w-full text-center text-blue-600 hover:text-blue-700 font-medium py-2">
                   {t('nav.login')}
                 </button>
-                <button className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white py-2 rounded-lg font-medium">
+                <button onClick={()=>navigate(router.selectType)} className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white py-2 rounded-lg font-medium">
                   {t('nav.signup')}
                 </button>
               </div>
