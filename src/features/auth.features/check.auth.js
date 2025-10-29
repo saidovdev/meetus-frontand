@@ -9,14 +9,14 @@ export const checkUserAuth = createAsyncThunk(
       const response = await api.get('/get-info');
 
       if (response.data.warning) {
-        toast.error("You are not signed in or cookie is deleted");
         console.log(response.data)
         return rejectWithValue(response.data.warning);
       }
 
-      return response.data; // response.data ni qaytarish kerak
-    } catch (error) {
-      toast.error("Server error");
+      return response.data; 
+        } catch (error) {
+          console.log(error.message);
+          
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
