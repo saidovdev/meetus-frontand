@@ -29,7 +29,6 @@ export  const login_user=createAsyncThunk(
     }
 )
 
-
 export const forgot_password=createAsyncThunk(
     'forgot/forgot_password',
     async({username,email},{rejectWithValue,getState})=>{
@@ -60,6 +59,93 @@ export const forgot_password=createAsyncThunk(
     }
 )
 
+export const verify_forgot=createAsyncThunk(
+    'verify_code/verify_forgot_password',
+    async({code},{rejectWithValue,getState})=>{
+        try {
+            const {email,username}=getState().login
+            const response=await api.post('/forgot_password',{email,username,code})
+            toast.success(t('login.successfullyVerified'))
+            return response.data
+        } catch (error) {
+            console.log("Error ocured while sending verify code to sever"+error.status,error.message);
+            const status=error.status
+            if(status===400 || status===500){
+                return rejectWithValue(t('noCode.error'))
+
+            }
+            if(status===401){
+                return rejectWithValue(t('serverError.noCode'))
+            }
+            if(status===410) {
+                return rejectWithValue(t('serverError.codeExpired'))
+            }   
+            if(status===404){
+                return rejectWithValue(t('login.userNotFound'))
+            }
+            
+        }
+    }
+)
+
+export  const change_password=createAsyncThunk(
+    'change_forgot/change_forgot_password',
+    async({newPassword},{rejectWithValue,getState})=>{
+    try {
+    const {username}=getState().login
+    const response=await api.post('/reset_password',{username,newPassword})
+
+   toast.success('Password Changed successfully')
+   return response.data
+      } catch (error) {
+    console.log("Error ocureed while changing password",+error.status,error.message);
+    const status=error.status
+             if(status===400 || status===500){
+                return rejectWithValue(t('serverError.error'))
+
+            }
+            if(status===401){
+                return rejectWithValue(t('serverError.noCode'))
+            }
+            if(status===410) {
+                return rejectWithValue(t('serverError.codeExpired'))
+            }   
+            if(status===404){
+                return rejectWithValue(t('login.userNotFound'))
+            }
+    
+    }
+    }
+)
+
+export const login_without=createAsyncThunk(
+    'login_without/login_without_passwowrd',
+    async(_,{rejectWithValue,getState})=>{
+        try {
+            const {username,id}=getState().login
+            const response=await api.post(`/no_password/${id}`,{username})
+            toast.success('Logged successfully')
+            return response.data
+        } catch (error) {
+              console.log("Error ocureed while login without password",+error.status,error.message);
+          const status=error.status
+             if(status===400 || status===500){
+                return rejectWithValue(t('serverError.error'))
+
+            }
+            if(status===401){
+                return rejectWithValue(t('serverError.noCode'))
+            }
+            if(status===410) {
+                return rejectWithValue(t('serverError.codeExpired'))
+            }   
+            if(status===404){
+                return rejectWithValue(t('login.userNotFound'))
+            }
+        }
+
+    }
+)
 
 
 
@@ -69,13 +155,28 @@ const initialState={
     error:false,
     reportError:'',
     success:false,
+    // forgot_password  initialStates
     forgot_success:false,
     forgot_loading:false,
     forgot_error:false,
     email:'',
     username:'',
-    forgot_reportError:''
+    forgot_reportError:'',
+    // verify_forgot initialStates
+    verify_reportError:'',
+    verify_success:false,
+    verify_error:false,
+    verify_loading:false,
+    verify_id:'',
+    // change password  
+    change_reportError:'',
+    change_loading:false,
+    change_success:false,
+    change_error:false
+
 }
+
+
 
 
 
@@ -117,6 +218,8 @@ const loginSlice=createSlice({
             state.success=true;
 
          })
+        // login_user addCase's
+
          .addCase(forgot_password.pending,(state,_)=>{
             state.forgot_loading=true;
             state.forgot_reportError='';
@@ -140,7 +243,51 @@ const loginSlice=createSlice({
             state.email='';
             state.username='';
          })
-         
+        // verify_forgot addCase's
+
+         .addCase(verify_forgot.pending,(state,_)=>{
+            state.verify_loading=true,
+            state.verify_error=false,
+            state.verify_success=false,
+            state.verify_reportError='';
+            state.verify_id=''
+         })
+         .addCase(verify_forgot.rejected,(state,action)=>{
+            state.verify_loading=false,
+            state.verify_error=true,
+            state.verify_success=false,
+            state.verify_reportError=action.payload;
+            state.verify_id=''
+         })
+           .addCase(verify_forgot.fulfilled,(state,action)=>{
+            state.verify_loading=false,
+            state.verify_error=false,
+            state.verify_success=true,
+            state.verify_reportError='';
+            state.verify_id=action.payload
+         })
+
+         // change_password
+
+           .addCase(change_password.pending,(state,_)=>{
+            state.change_loading=true,
+            state.change_error=false,
+            state.change_success=false,
+            state.change_reportError='';
+         })
+         .addCase(change_password.rejected,(state,action)=>{
+            state.change_loading=false,
+            state.change_error=true
+            state.change_success=false,
+            state.change_reportError=action.payload;
+         })
+           .addCase(verify_forgot.fulfilled,(state,action)=>{
+            state.change_loading=false,
+            state.change_error=false
+            state.change_success=true,
+            state.change_reportError='';
+         })
+
     }
 })
 export const {removeAllState}=loginSlice.actions

@@ -31,14 +31,11 @@ export default function Login() {
 
 
 
-const handleChange = (username) => {
+  const handleChange = (username) => {
   if (username === '' || usernameRegex.test(username)) {
     setUsername(username)
   }
 }
-
-
-
 
   
   const handleLogin = () => {

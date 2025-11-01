@@ -149,7 +149,12 @@
     "forgotPassword": "Forgot your password",
     "forgotDesc": "Please enter your valid email address which belongs to your username (account), we will send you verification code to reset your password.",
     "submitSendCode": "Send code",
-    "backToLogin": "Back to login"
+    "backToLogin": "Back to login",
+    "successfullyVerified":"Successfully verified",
+    "successfullyPasswordChanged":"Password successfully changed",
+    "loginWithoutChanges":"Login to account without change password",
+    "codeVerifyDesc":"If you forgot password , please change it to new one . Or push on login without changes!"
+    
   
 
 }
