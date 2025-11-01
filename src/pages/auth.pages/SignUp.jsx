@@ -34,26 +34,21 @@ export default function SignUp() {
      }else if(selectedType?.success==true){
 
       console.log(selectedType);
-      navigate(router.verfiycode)
       return
       }
 
     
   }, [selectedType, t, navigate])
 
-  const handleEmailChange = (email) => {
-   if(emailRegex.test(email) || email===''){
-  setEmail(email)
-   }
-  }
+
 
   const handleChange = (username) => {
-    if (username === '' || usernameRegex.test(username)) {
+    if (usernameRegex.test(username)) {
       setUsername(username)
     }
   }
   const handleSignUp = () => {
-    if (!validateEmail(email)) {
+    if (!emailRegex.test(email)) {
       setWarning(t('serverError.worseEmail'))
       setErrorField('email')
       return
@@ -101,7 +96,7 @@ const getInputClass = (field) => {
             <input
               type="email"
               value={email}
-              onChange={(e) => handleEmailChange(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder={t('signup.emailplace')}
               className={getInputClass('email')}
             />

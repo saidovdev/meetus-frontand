@@ -25,15 +25,13 @@ export default function ForgotPassword() {
     } else if (forgotData?.forgot_success) {
       setWarning('')
       setLoading(false)
+      navigate(router.verify_forgot)
     }
+ 
   }, [forgotData])
 
-  const handleEmailChange = (value) => {
-    if (emailRegex.test(value) || value === '') {
-      setEmail(value)
-      setWarning('')
-    }
-  }
+  
+
 
   const handleUsernameChange = (value) => {
     if (usernameRegex.test(value) || value === '') {
@@ -44,12 +42,12 @@ export default function ForgotPassword() {
 
   const handleSendCode = () => {
     if (!username.trim() || !usernameRegex.test(username)) {
-      setWarning(t('serverError.usernameInvalid'))
+      setWarning(t('serverError.usernameLength'))
       return
     }
 
     if (!email.trim() || !emailRegex.test(email)) {
-      setWarning(t('serverError.emailInvalid'))
+      setWarning(t('serverError.worseEmail'))
       return
     }
 
@@ -103,7 +101,7 @@ export default function ForgotPassword() {
                 type="email"
                 placeholder={t('signup.emailplace')}
                 value={email}
-                onChange={(e) => handleEmailChange(e.target.value)}
+                onChange={(e)=>setEmail(e.target.value)}
                 className={inputClass}
               />
             </div>
@@ -128,7 +126,7 @@ export default function ForgotPassword() {
                 onClick={() => navigate(router.signup)}
                 className="text-[#00bfff] hover:underline cursor-pointer"
               >
-                {t('auth.signup')}
+                {t('nav.signup')}
               </span>
             </p>
           </div>
