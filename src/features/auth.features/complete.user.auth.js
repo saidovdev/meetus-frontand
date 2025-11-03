@@ -49,7 +49,7 @@ const complete_mypofileSlice=createSlice({
     reducers:{
         removeCompleteMyProfileInitialStates:(state,action)=>{
 state.error=false 
-  state.loadin=false,
+  state.loading=false,
    state.error=false,
     state.reportError=''
 }

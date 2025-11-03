@@ -40,7 +40,6 @@ export default function Verify_Code() {
     }
     dispatch(verify_code({ code }));
 
-    if(codeData.success!==true) return navigate(router.signup)
 
   };
 
