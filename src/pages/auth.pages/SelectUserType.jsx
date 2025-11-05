@@ -34,7 +34,7 @@ const selected=useSelector(state=>state.auth)
   <div className="w-full max-w-5xl bg-white shadow-xl rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-10 transition-transform duration-300 hover:scale-[1.01] relative">
     
     <button
-      onClick={() => navigate(-1)}
+      onClick={() => navigate(router.intro)}
       className="absolute top-2 left-5 text-gray-500 hover:text-[#00bfff] transition-colors"
     >
       <ArrowLeft size={24} />

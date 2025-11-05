@@ -40,11 +40,7 @@ export default function Introduction() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </button>
-                <button className="px-8 py-4 border border-gray-300 hover:border-gray-400 text-gray-700 font-semibold rounded-lg transition-colors duration-200">
-                  {t('hero.secondaryButton')}
-                </button>
               </div>
-
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-gray-200">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-gray-900">500+</div>
