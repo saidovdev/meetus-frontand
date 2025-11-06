@@ -7,7 +7,14 @@ const router={
     forgot_password:'/forgot_password',
     verify_forgot:'/verify_forgot',
     change_password:'/change_password',
-    complete_profile:'/complete_profile'
+    complete_profile:'/complete_profile',
+    myProfile:'/my-profile',
+    jobs:'/jobs',
+    companies:'/companies',
+    messages:'/messages',
+    history:'/history',
+    stuckNavigator:'/navigator'
+
 }
 
 export default router

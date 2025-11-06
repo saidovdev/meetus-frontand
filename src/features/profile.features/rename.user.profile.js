@@ -5,15 +5,49 @@ import { t } from "i18next";
 
 
 
-
-export const rename_user_info=createAsyncThunk(
+export const upload_images=createAsyncThunk(
     'rename_user_info/rename_user.profile',
-    async({key,value},{})=>{
+    async({file},{rejectWithValue})=>{
         try {
-            const response=await api.post('/profile/edit',{[key]:value})
-            to
-        } catch (error) {
-            
+             const formData=new FormData()
+              formData.append('image',file)
+              const response = await api.post('/profile/add_profile_img', formData, {
+              headers: { 'Content-Type': 'multipart/form-data' }
+              });
+              toast.success(t('profile.profileImgUpload'));
+             return response.data.user;
+                 } catch (error) {
+                  toast.error(t('serverError.error'));
+                return rejectWithValue(t('serverError.error'))
         }
     }
 )
+
+
+export const delete_profile_image=createAsyncThunk(
+    'delete_profile_image/delete',
+    async(__,{rejectWithValue,getState})=>{
+        try {
+            const {user}=getState().user
+            
+            const response=await api.post('/profile/delete/img',{profileImgPublicId:user.profileImgPublicId})
+
+            toast.success(t('profile.deletedProfileImg'))
+            
+            return response.data
+        } catch (error) {
+            console.log(
+                "Error ocured while deleting profile iimage",
+                error.status,
+                error.message
+            )
+
+                 toast.error(t('serverError.error'))
+                return rejectWithValue(t('serverError.error'))
+        }
+    }
+)
+
+
+
+

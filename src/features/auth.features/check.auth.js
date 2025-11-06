@@ -16,7 +16,10 @@ export const checkUserAuth = createAsyncThunk(
       return response.data; 
         } catch (error) {
           console.log(error.message);
-          
+          const status=error.status
+          if(status===401){
+            return rejectWithValue({no:{}})
+          }
       return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
@@ -46,6 +49,7 @@ const userSlice = createSlice({
       .addCase(checkUserAuth.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.user=action.payload?.no
       });
   },
 });

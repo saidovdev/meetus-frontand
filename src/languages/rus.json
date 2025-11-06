@@ -178,6 +178,25 @@
     "success": "Пароль успешно изменён!",
     "backToLogin": "Вернуться к входу",
     "loginWithoutChanges": "Войти без изменений"
+  },
+  "profile":{
+    "fullName": "Полное имя",
+    "followers": "Подписчики",
+    "following": "Подписки",
+    "projects": "Проекты",
+    "username": "имя пользователя",
+       "vacancy": "Вакансия",
+      "deletedProfileImg":"Изображение профиля успешно удалено",
+      "profileImgUpload":"Изображение профиля обновлено!",
+          "myProfile": "Мой профиль",
+    "jobs": "Вакансии",
+    "companiesAndUsers": "Компании и пользователи",
+    "messages": "Сообщения",
+    "history": "История",
+        "settings": "Настройки"
+
+
+
   }
 
 

@@ -16,14 +16,33 @@ import ForgotPassword from './pages/auth.pages/ForgotPassword.jsx'
 import Verify_Forgot from './pages/auth.pages/Verify_Forgot.jsx'
 import ChangePassword from './pages/auth.pages/ChangePassword.jsx'
 import CompleteProfile from './pages/auth.pages/CompleteProfile.jsx'
+import Company from './pages/company.pages/Company.jsx'
+import History from './pages/history.pages/History.jsx'
+import Chats from './pages/messages.pages/Chats.jsx'
+import Posts from './pages/posts.pages/Posts.jsx'
+import ProfileMain from './pages/profile.pages/ProfileMain.jsx'
+import Jobs from './pages/jobs.pages/Jobs.jsx'
+import StuckNavigatorPage from './pages/profile.pages/StuckNavigatorPage.jsx'
+import ProtectedRoute from './components/protect/ProtectedRoutes.jsx'
+import { useNavigate } from 'react-router-dom'
+
 function App() {
   const userData=useSelector(state=>state.user)
+  const navigate=useNavigate()
   const dispatch=useDispatch()
     useEffect(()=>{
      dispatch(checkUserAuth())
-   },[checkUserAuth])
-   console.log(userData.user);
-   
+   },[checkUserAuth,navigate])
+    useEffect(() => {
+    if (!userData?.loading) {
+      if (!userData.user.email) {
+        navigate(router.intro, { replace: true });
+      } else {
+        navigate(router.stuckNavigator, { replace: true });
+      }
+    }
+  }, []);
+console.log(userData);
 
 
   return (  
@@ -39,6 +58,21 @@ function App() {
         <Route path={router.change_password} element={<ChangePassword/>}/>
         <Route path={router.forgot_password} element={<ForgotPassword/>}/>
         <Route path={router.complete_profile} element={<CompleteProfile/>}/>
+
+        // navigator pages pages 
+        <Route path={router.stuckNavigator} element={<StuckNavigatorPage/>}/>
+        
+        <Route path={router.myProfile} element={<ProfileMain/>}/>
+        <Route path={router.companies} element={<Company/>}/>
+        <Route path={router.jobs} element={<Jobs/>}/>
+        <Route path={router.history} element={<History/>}/>
+        <Route path={router.messages} element={<Chats/>}/>
+
+
+
+
+
+
       </Routes>
     </>
   )

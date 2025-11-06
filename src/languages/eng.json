@@ -171,6 +171,22 @@
     "success": "Password successfully changed!",
     "backToLogin": "Back to login",
     "loginWithoutChanges": "Login without changes"
+  },
+  "profile":{
+        "fullName": "Full Name",
+      "followers": "Followers",
+      "following": "Following",
+      "projects": "Projects",
+       "username": "username",
+      "vacancy": "Vacancy",
+      "deletedProfileImg":"Profile image deleted successfully",
+      "profileImgUpload":"Profile image updated!",
+        "myProfile": "My Profile",
+    "jobs": "Jobs",
+    "companiesAndUsers": "Companies & Users",
+    "messages": "Messages",
+    "history": "History",
+       "settings": "Settings"
   }
 
 

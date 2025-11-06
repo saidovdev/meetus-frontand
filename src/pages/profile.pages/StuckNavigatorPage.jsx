@@ -1,0 +1,97 @@
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Home, Briefcase, Users, MessageCircle, Clock, Settings } from 'lucide-react';
+import { changePage } from '../../features/navigator.features/navigator.js';
+import ProfileMain from './ProfileMain';
+import Jobs from '../jobs.pages/Jobs.jsx';
+import Company from '../company.pages/Company.jsx';
+import Chats from '../messages.pages/Chats.jsx';
+import History from '../history.pages/History.jsx';
+import { t } from 'i18next';
+export default function StuckNavigatorPage() {
+  const dispatch = useDispatch();
+  const { page } = useSelector((state) => state.navigator);
+
+  const navItems = [
+    { name: t('profile.myProfile'), path: 'profile', icon: <Home size={20} /> },
+    { name:t('profile.jobs') , path: 'jobs', icon: <Briefcase size={20} /> },
+    { name: t('profile.companiesAndUsers'), path: 'company', icon: <Users size={20} /> },
+    { name: t('profile.messages'), path: 'chats', icon: <MessageCircle size={20} /> },
+    { name: t('profile.history'), path: 'history', icon: <Clock size={20} /> },
+  ];
+
+  return (
+    <div className="flex h-screen bg-gradient-to-r from-[#e6f0fa] to-[#f9fbff]">
+      <aside className="hidden md:flex flex-col w-72 bg-white/80 backdrop-blur-lg shadow-2xl border-r border-gray-200 p-5">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="bg-gradient-to-br from-[#00bfff] to-[#0288d1] w-10 h-10 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-md">
+            M
+          </div>
+          <h1 className="text-xl font-semibold text-gray-800 tracking-wide">
+            Meet<span className="text-[#00bfff]">Us</span> Panel
+          </h1>
+        </div>
+
+        <nav className="flex flex-col space-y-2">
+          {navItems.map((item) => (
+            <button
+              key={item.name}
+              onClick={() => dispatch(changePage({ page: item.path }))}
+              className={`flex items-center gap-3 p-3 rounded-xl transition-all duration-300 font-medium
+                ${
+                  page === item.path
+                    ? 'bg-gradient-to-r from-[#00bfff] to-[#1ec9f4] text-white shadow-md'
+                    : 'text-gray-700 hover:bg-[#eaf6ff] hover:text-[#0288d1]'
+                }
+              `}
+            >
+              <div
+                className={`${
+                  page === item.path
+                    ? 'text-white'
+                    : 'text-[#0288d1] group-hover:text-white'
+                }`}
+              >
+                {item.icon}
+              </div>
+              <span>{item.name}</span>
+            </button>
+          ))}
+        </nav>
+
+        <div className="mt-auto pt-6 border-t border-gray-200">
+          <button
+            className="flex items-center gap-2 text-gray-500 hover:text-[#00bfff] transition"
+            onClick={() => alert('Settings clicked')}
+          >
+            <Settings size={18} />
+            <span>{t('profile.settings')}</span>
+          </button>
+        </div>
+      </aside>
+
+      <main className="flex-1 overflow-y-auto p-6 md:p-10">
+        {page === 'profile' && <ProfileMain />}
+        {page === 'chats' && <Chats />}
+        {page === 'history' && <History />}
+        {page === 'jobs' && <Jobs />}
+        {page === 'company' && <Company />}
+      </main>
+
+      <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-white/90 backdrop-blur-md shadow-lg flex justify-around py-2 border-t border-gray-200">
+        {navItems.map((item) => (
+          <button
+            key={item.name}
+            onClick={() => dispatch(changePage({ page: item.path }))}
+            className={`flex flex-col items-center justify-center text-xs ${
+              page === item.path ? 'text-[#00bfff]' : 'text-gray-500'
+            }`}
+          >
+            {item.icon}
+            <span>{item.name.split(' ')[0]}</span>
+          </button>
+        ))}
+      </nav>
+    </div>
+  );
+}

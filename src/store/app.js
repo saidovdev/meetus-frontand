@@ -3,15 +3,15 @@
     import userSignupSlice from '../features/auth.features/signup.user.js'
     import loginSlice from '../features/auth.features/login.user.js'
     import completeSlice from '../features/auth.features/complete.user.auth.js'
+    import navigatorSlice from '../features/navigator.features/navigator.js'
     const persistedState=sessionStorage.getItem('reduxState') ? JSON.parse(sessionStorage.getItem('reduxState')):{}
-
-
     export const store=configureStore({
         reducer:{
           user:userSlice,
           auth:userSignupSlice,
           login:loginSlice,
-          complete:completeSlice
+          complete:completeSlice,
+          navigator:navigatorSlice
         },
         preloadedState:persistedState
     })

@@ -54,6 +54,7 @@ export const forgot_password=createAsyncThunk(
         if(status===401){
             return rejectWithValue(t('login.emailNoExists'))
         }
+            return rejectWithValue(t('serverError.error'))
 
         }
 
@@ -85,6 +86,7 @@ export const verify_forgot=createAsyncThunk(
             if(status===404){
                 return rejectWithValue(t('login.userNotFound'))
             }
+            return rejectWithValue(t('serverError.error'))
             
         }
     }
@@ -115,6 +117,7 @@ export  const change_password=createAsyncThunk(
             if(status===404){
                 return rejectWithValue(t('login.userNotFound'))
             }
+            return rejectWithValue(t('serverError.error'))
     
     }
     }
@@ -146,6 +149,8 @@ export const login_without=createAsyncThunk(
             if(status===404){
                 return rejectWithValue(t('login.userNotFound'))
             }
+            return rejectWithValue(t('serverError.error'))
+
         }
 
     }
