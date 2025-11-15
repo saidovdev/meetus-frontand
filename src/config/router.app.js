@@ -13,7 +13,8 @@ const router={
     companies:'/companies',
     messages:'/messages',
     history:'/history',
-    stuckNavigator:'/navigator'
+    stuckNavigator:'/navigator',
+    editProfile:'/edit-profile'
 
 }
 

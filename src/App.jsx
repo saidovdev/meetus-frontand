@@ -23,28 +23,25 @@ import Posts from './pages/posts.pages/Posts.jsx'
 import ProfileMain from './pages/profile.pages/ProfileMain.jsx'
 import Jobs from './pages/jobs.pages/Jobs.jsx'
 import StuckNavigatorPage from './pages/profile.pages/StuckNavigatorPage.jsx'
-import ProtectedRoute from './components/protect/ProtectedRoutes.jsx'
 import { useNavigate } from 'react-router-dom'
-
 function App() {
   const userData=useSelector(state=>state.user)
+
   const navigate=useNavigate()
   const dispatch=useDispatch()
     useEffect(()=>{
      dispatch(checkUserAuth())
    },[checkUserAuth,navigate])
-useEffect(() => {
-    if (!userData?.loading) {
-      if (!userData.user.email) {
-        navigate(router.intro, { replace: true });
-      } else {
-        navigate(router.stuckNavigator, { replace: true });
-      }
-    }
-  }, [userData?.loading, userData.user.email, navigate]);
-console.log(userData);
+  //        useEffect(() => {
+  //   if (!userData?.loading) {
+  //     if (userData.user?.email) {
+  //       navigate(router.stuckNavigator, { replace: true });
+  //     }
 
-
+  //   }
+  // }, [userData?.loading, userData.user?.email, navigate]);
+  console.log(userData.user);
+  
   return (  
     <>
     <Toaster position='top-rigth' reverseOrder={false} />
@@ -61,7 +58,6 @@ console.log(userData);
 
         // navigator pages pages 
         <Route path={router.stuckNavigator} element={<StuckNavigatorPage/>}/>
-        
         <Route path={router.myProfile} element={<ProfileMain/>}/>
         <Route path={router.companies} element={<Company/>}/>
         <Route path={router.jobs} element={<Jobs/>}/>

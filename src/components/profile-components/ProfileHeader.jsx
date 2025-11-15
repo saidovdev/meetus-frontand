@@ -40,8 +40,8 @@ const [isModalOpen,setIsModalOpen]=useState(false)
 <Modal
     isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        imageUrl={user.profileImgUrl ? user.profileImgUrl : profileImage}
-        userId={user._id}
+        imageUrl={user?.profileImgUrl ? user?.profileImgUrl : profileImage}
+        userId={user?._id}
 />
 
         <div className="flex flex-col justify-center">

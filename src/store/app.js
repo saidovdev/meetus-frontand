@@ -4,6 +4,8 @@
     import loginSlice from '../features/auth.features/login.user.js'
     import completeSlice from '../features/auth.features/complete.user.auth.js'
     import navigatorSlice from '../features/navigator.features/navigator.js'
+    import profileRenameSlice from '../features/profile.features/rename.user.profile.js'
+    import contactSlice from '../features/profile.features/user.contact.js'
     const persistedState=sessionStorage.getItem('reduxState') ? JSON.parse(sessionStorage.getItem('reduxState')):{}
     export const store=configureStore({
         reducer:{
@@ -11,7 +13,9 @@
           auth:userSignupSlice,
           login:loginSlice,
           complete:completeSlice,
-          navigator:navigatorSlice
+          navigator:navigatorSlice,
+          profileRename:profileRenameSlice,
+          contact:contactSlice
         },
         preloadedState:persistedState
     })

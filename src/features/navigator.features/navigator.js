@@ -11,6 +11,8 @@ const navigatorSlice=createSlice({
     initialState,
     reducers:{
         changePage:(state,action)=>{
+            console.log(action.payload.page);
+            
             state.page=action.payload.page
         }
     }

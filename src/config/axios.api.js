@@ -4,7 +4,7 @@ import axios from "axios";
     baseURL:'http://localhost:1747/api',
     withCredentials:true,
     headers:{
-         'Content-Type': 'application/json'
+         'Content-Type': 'application/json',
     }
  })
 

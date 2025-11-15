@@ -322,7 +322,7 @@ const loginSlice=createSlice({
          })
 
          // login wihtout password addCases
-
+         
          .addCase(login_without.pending,(state,_)=>{
             state.loginw_error=false;
             state.loginw_loading=true;

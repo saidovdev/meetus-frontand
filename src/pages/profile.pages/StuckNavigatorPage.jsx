@@ -7,10 +7,20 @@ import Jobs from '../jobs.pages/Jobs.jsx';
 import Company from '../company.pages/Company.jsx';
 import Chats from '../messages.pages/Chats.jsx';
 import History from '../history.pages/History.jsx';
+import EditProfile from './EditProfile.jsx';
+import RenameUsername from '../../components/profile-components/RenameUsername.jsx';
 import { t } from 'i18next';
+import EditEmail from '../../components/profile-components/EditEmail.jsx';
+import EditPhone from '../../components/profile-components/EditPhone.jsx';
+import EditBio from '../../components/profile-components/EditBio.jsx';
+import EditLocation from '../../components/profile-components/EditLocation.jsx';
+import RenameFullname from '../../components/profile-components/EditFullname.jsx';
+import EditBirthdate from '../../components/profile-components/EditBirthdate.jsx';
+import AddSocialLink from '../../components/profile-components/AddSocialLink.jsx';
 export default function StuckNavigatorPage() {
   const dispatch = useDispatch();
   const { page } = useSelector((state) => state.navigator);
+console.log(page);
 
   const navItems = [
     { name: t('profile.myProfile'), path: 'profile', icon: <Home size={20} /> },
@@ -69,14 +79,25 @@ export default function StuckNavigatorPage() {
           </button>
         </div>
       </aside>
+<main className="flex-1 flex flex-col min-h-screen relative">
+  <div className="flex-1 overflow-y-auto">
+    {page === 'profile' && <ProfileMain className="p-6 md:p-10" />}
+    {page === 'chats' && <Chats className="p-6 md:p-10" />}
+    {page === 'history' && <History className="p-6 md:p-10" />}
+    {page === 'jobs' && <Jobs className="p-6 md:p-10" />}
+    {page === 'company' && <Company className="p-6 md:p-10" />}
+    {page === 'edit' && <EditProfile className="p-6 md:p-10" />}
+    {page === 'renameusername' && <RenameUsername className="p-6 md:p-10" />}
+    {page === 'renameemail' && <EditEmail className="p-6 md:p-10" />}
+    {page === 'renamephone' && <EditPhone className="p-6 md:p-10" />}
+    {page === 'renamebio' && <EditBio className="p-6 md:p-10" />}
+    {page === 'renamelocation' && <EditLocation className="p-6 md:p-10" />}
+    {page === 'renamefullname' && <RenameFullname className="p-6 md:p-10" />}
+    {page === 'renamebirthdate' && <EditBirthdate className="p-6 md:p-10" />}
+    {page==='addsocialLink' && <AddSocialLink className="p-6 md:p-10" />}
+  </div>
+</main>
 
-      <main className="flex-1 overflow-y-auto p-6 md:p-10">
-        {page === 'profile' && <ProfileMain />}
-        {page === 'chats' && <Chats />}
-        {page === 'history' && <History />}
-        {page === 'jobs' && <Jobs />}
-        {page === 'company' && <Company />}
-      </main>
 
       <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-white/90 backdrop-blur-md shadow-lg flex justify-around py-2 border-t border-gray-200">
         {navItems.map((item) => (

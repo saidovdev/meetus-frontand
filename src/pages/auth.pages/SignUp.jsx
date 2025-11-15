@@ -164,7 +164,7 @@ const getInputClass = (field) => {
             </button>
 
                        <a
-      href="http://localhost:1747/api/auth/google"
+      href="https://meet-nahm.onrender.com/api/auth/google"
       className="inline-flex items-center justify-center gap-3 w-full    max-w-xs py-3 px-4 bg-white border border-gray-300 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200"
     >
     <img src={Google}  className="w-15 h-10 text-blue-500" alt="" />
