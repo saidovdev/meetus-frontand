@@ -36,11 +36,11 @@ export default function StuckNavigatorPage() {
     { name: t('profile.settings'), path: 'settings', icon: <SettingsIcon size={20} /> },
   ];
 
-  React.useEffect(() => {
-    if (!loading && !user?.email) {
-      navigate(router.intro);
-    }
-  }, [loading, user, navigate]);
+  // React.useEffect(() => {
+  //   if (!loading && !user?.email) {
+  //     navigate(router.intro);
+  //   }
+  // }, [loading, user, navigate]);
 
   return (
     <div className="flex h-screen bg-gradient-to-r from-[#e6f0fa] to-[#f9fbff]">

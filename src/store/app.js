@@ -13,6 +13,7 @@ import projectSlice from "../features/post.feautures/post.project.js";
 import searchSlice from "../features/search.feauture/search.js";
 import postDetails from "../features/post.feautures/post.details.js";
 import collaboratorNOtificationSlice from "../features/notification.features/post.notifictaion/collaborator.notication.js";
+import getPostSlice from "../features/post.feautures/get.post.js";
 const rootReducer = combineReducers({
   user: userSlice,
   auth: userSignupSlice,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   search: searchSlice,
   postDetails: postDetails,
   collaborator: collaboratorNOtificationSlice,
+  getpost: getPostSlice,
 });
 
 const persistConfig = {

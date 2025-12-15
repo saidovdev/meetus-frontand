@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../config/axios.api";
 import { t } from "i18next";
-import api from "../../config/axios.api";
 
 export const get_post = createAsyncThunk(
   "get_post/get",
@@ -31,7 +30,7 @@ const initialState = {
 const getPostSlice = createSlice({
   name: "getPost",
   initialState,
-  reducers,
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(get_post.pending, (state, action) => {
@@ -39,10 +38,17 @@ const getPostSlice = createSlice({
         state.reportError = "";
         (state.success = false), (state.post = []);
       })
-      .addCase(get_post.pending, (state, action) => {
-        state.loading = true;
+      .addCase(get_post.fulfilled, (state, action) => {
+        state.loading = false;
         state.reportError = "";
+        (state.success = true), (state.post = action.payload.post);
+      })
+      .addCase(get_post.rejected, (state, action) => {
+        state.loading = false;
+        state.reportError = action.payload;
         (state.success = false), (state.post = []);
       });
   },
 });
+
+export default getPostSlice.reducer;

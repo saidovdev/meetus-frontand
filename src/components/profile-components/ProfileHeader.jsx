@@ -22,7 +22,8 @@ useEffect(()=>{
     <div className="relative w-full ">
       {collaborators.length>0 && 
       collaborators.map((item)=>(
-       <CollaboratorNotification  collaborator={item} />
+   <div key={item?._id}> 
+       <CollaboratorNotification  collaborator={item} /></div>
       ))
       
       }

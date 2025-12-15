@@ -70,7 +70,7 @@ export default function PostCard({ item }) {
       </div>
 
       {item?.images?.length > 0 ? (
- <div className="w-full h-[300px] relative bg-gray-50 rounded-xl">
+      <div className="w-full h-[300px] relative bg-gray-50 rounded-xl">
     <Slider {...sliderSettings}>
       {item.images.map((img, index) => (
         <div key={index} className="w-full h-[300px]">

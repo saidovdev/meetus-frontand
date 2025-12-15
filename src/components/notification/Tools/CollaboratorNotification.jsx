@@ -1,11 +1,13 @@
 import { useState,useEffect,useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { t } from "i18next";
 import { X } from "lucide-react"
 import toast from "react-hot-toast";
 import { useDispatch,useSelector } from "react-redux";
 import profileImg from '../../../images/profile.jpeg'
+import { useNavigate } from "react-router-dom";
+import router from "../../../config/router.app";
 export default function CollaboratorNotification({collaborator}) {
+  const navigate=useNavigate()
  const dispatch=useDispatch() 
  
   return (
@@ -23,7 +25,6 @@ export default function CollaboratorNotification({collaborator}) {
   gap-4
 ">
 
-  {/* ❌ CLOSE BUTTON — ALWAYS TOP RIGHT */}
   <button
     className="
       absolute top-3 right-3
@@ -37,7 +38,6 @@ export default function CollaboratorNotification({collaborator}) {
     <X size={18} className="text-gray-400" />
   </button>
 
-  {/* LEFT */}
   <div className="flex items-start gap-4 max-w-full pr-10">
     <img
       src={collaborator?.ownerId?.profileImgUrl || profileImg}
@@ -59,17 +59,16 @@ export default function CollaboratorNotification({collaborator}) {
     </div>
   </div>
 
-  {/* RIGHT */}
   <div className="
     flex items-center gap-3
     justify-end
     flex-wrap
   ">
-    <button className="text-sm text-gray-500 hover:text-gray-700 transition whitespace-nowrap">
+    <button className="text-sm text-gray-500 hover:text-gray-700 transition whitespace-nowrap" >
       {t('posts.message')}
     </button>
 
-    <button className="text-sm text-gray-500 hover:text-gray-700 transition whitespace-nowrap">
+    <button className="text-sm text-gray-500 hover:text-gray-700 transition whitespace-nowrap" onClick={()=>navigate(router.postViewLink(collaborator?.postId))} >
       {t('posts.seePost')}
     </button>
 
