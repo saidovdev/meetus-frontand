@@ -10,6 +10,7 @@ export default function Footer() {
         <div className="md:col-span-1">
           <h3 className="text-white text-xl font-semibold mb-4">MeetUs</h3>
           <p className="text-gray-400 text-sm leading-relaxed">
+            {/* s */}
             {t('footer.description')}
           </p>
         </div>
