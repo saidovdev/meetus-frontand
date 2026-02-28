@@ -8,49 +8,157 @@ import Modal from "./Modal";
 import { useState } from "react";
 import { getCollaborator } from "../../features/notification.features/post.notifictaion/collaborator.notication.js";
 import CollaboratorNotification from "../notification/Tools/CollaboratorNotification.jsx";
+import { socket } from "../../config/socket.io.js";
+import toast from "react-hot-toast";
+import { showNotification } from "../../units/Notication/ShowNotification.jsx";
+import { Heart } from "lucide-react";
+import { get_unreadNotification,setAddToUnreadNotification } from "../../features/notification.features/post.notifictaion/get.notification.js";
+import { useNavigate } from "react-router-dom";
+import router from "../../config/router.app.js";
 export default function ProfileHeader() {
   const dispatch=useDispatch()
+  const navigate=useNavigate()
   const { user } = useSelector((state) => state.user);
   const {collaborators} =useSelector(state=>state.collaborator)
+  const {onlineUsers}=useSelector(state=>state.onlineUsers)
+  const {unread,countUnread} =useSelector(state=>state.notification)
 const [isModalOpen,setIsModalOpen]=useState(false)
-console.log(collaborators);
+
+useEffect(()=>{
+  dispatch(get_unreadNotification())
+},[])
+
+
+
+  const isOnline = onlineUsers?.includes(user?._id)
+
+
+
+
 
 useEffect(()=>{
   dispatch(getCollaborator())
+socket.on("notification", (data) => {
+  const n = data.notification;  
+
+  console.log("REAL TIME ACCEPT:", n);
+
+  dispatch(setAddToUnreadNotification(n));
+
+  showNotification({
+    avatar: n?.from?.profileImgUrl || profileImage,
+    fullname: n?.from?.fullname || "",
+    username: n?.from?.username || "",
+    message: "",
+    text: n?.text || "",
+    notificationType: n?.notificationType,
+    senderId: n?.from?._id,
+    postId: n?.postId || "",
+  });
+});
 },[])
+
   return (
     <div className="relative w-full ">
-      {collaborators.length>0 && 
-      collaborators.map((item)=>(
+      {collaborators?.length>0 && 
+      collaborators?.map((item)=>(
    <div key={item?._id}> 
        <CollaboratorNotification  collaborator={item} /></div>
       ))
       
       }
-      <div className="relative h-[14rem] md:h-[16rem] w-full">
-        <img
-          src={user?.coverImgUrl ? user.coverImgUrl : backgroundImage}
-          alt="cover"
-          className="h-full w-full object-cover rounded-b-2xl shadow-sm"
-        />
 
-        {user?.role === "business" && (
-          <img
-            src={businessImage}
-            alt="business"
-            className="absolute top-4 right-5 w-16 h-16 rounded-full shadow-lg ring-2 ring-primary bg-white p-1"
-          />
-        )}
-      </div>
+<div className="relative h-[14rem] md:h-[16rem] w-full overflow-hidden rounded-b-2xl">
+
+  <img
+    src={user?.coverImgUrl ? user.coverImgUrl : backgroundImage}
+    alt="cover"
+    className="h-full w-full object-cover"
+  />
+
+  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
+
+  {user?.role === "business" && (
+    <button
+      className="absolute top-4 right-4 w-14 h-14 rounded-full
+                 bg-white/90 backdrop-blur-md
+                 shadow-lg ring-1 ring-black/5
+                 flex items-center justify-center
+                 active:scale-95 transition"
+    >
+      <img
+        src={businessImage}
+        alt="business"
+        className="w-8 h-8 object-contain"
+      />
+    </button>
+  )}
+
+<div className="absolute bottom-4 right-4 z-20">
+  <button
+  onClick={()=>navigate(router.notification)}
+    type="button"
+    aria-label="Notifications"
+    className="
+      relative
+      w-11 h-11
+      rounded-full
+      bg-white/90 backdrop-blur-md
+      shadow-md
+      ring-1 ring-black/5
+      flex items-center justify-center
+      transition
+      hover:bg-white
+      active:scale-95
+      focus:outline-none
+      focus:ring-2 focus:ring-blue-500/40
+    "
+  >
+    <Heart
+      size={20}
+      strokeWidth={1.8}
+      className="text-gray-700"
+    />
+
+    {countUnread > 0 && (
+      <span
+        className="
+          absolute -top-1 -right-1
+          min-w-[18px] h-[18px]
+          px-1
+          rounded-full
+          bg-red-500
+          text-white
+          text-[11px]
+          font-semibold
+          flex items-center justify-center
+          shadow
+          leading-none
+        "
+      >
+        {countUnread > 99 ? "99+" : countUnread}
+      </span>
+    )}
+  </button>
+</div>
+
+</div>
+
       <div className="absolute left-4 sm:left-8 -bottom-10 flex flex-col sm:flex-row sm:items-center gap-4">
         <div className="relative">
-          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full ring-4 ring-white shadow-lg overflow-hidden -mt-10 sm:-mt-12" onClick={()=>setIsModalOpen(true)}>
-            <img
-              src={user?.profileImgUrl ? user.profileImgUrl : profileImage}
-              alt="profile"
-              className="object-cover w-full h-full"
-            />
-          </div>
+       <div className="relative w-24 h-24 sm:w-28 sm:h-28 -mt-10 sm:-mt-12">
+  <img
+    src={user?.profileImgUrl || profileImage}
+    alt="profile"
+    className="object-cover w-full h-full rounded-full ring-4 ring-white shadow-lg"
+    onClick={() => setIsModalOpen(true)}
+  />
+
+  {isOnline && (
+    <span className="absolute bottom-1 right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-500 rounded-full ring-2 ring-white" />
+  )}
+</div>
+
         </div>
 
 <Modal

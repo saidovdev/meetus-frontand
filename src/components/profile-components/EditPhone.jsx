@@ -16,7 +16,6 @@ export default function EditPhone() {
   const { user } = useSelector((s) => s.user);
   const { loading, reportError } = useSelector((s) => s.profileRename || {});
 
-  // Parse initial phone
   const initialPhone = user?.phone || "";
   let initialCountryIndex = 0;
   let initialLocal = initialPhone;

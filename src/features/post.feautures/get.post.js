@@ -6,14 +6,13 @@ export const get_post = createAsyncThunk(
   "get_post/get",
   async ({ postId }, { rejectWithValue, getState, dispatch }) => {
     try {
-      const response = await api.get(`get_post/:${postId}`);
+      console.log(postId);
+      
+      const response = await api.get(`get_post/post/${postId}`);
       return response.data;
     } catch (error) {
-      const status = error?.status;
 
-      if ((status = 404)) {
-        return rejectWithValue("Post not found please try again later");
-      }
+ 
       return rejectWithValue(t("serverError.error"));
     }
   }

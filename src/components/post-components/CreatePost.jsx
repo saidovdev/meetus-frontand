@@ -9,9 +9,10 @@ import router from "../../config/router.app";
 import { useNavigate } from "react-router-dom";
 import { setDraft } from "../../features/post.feautures/post.details";
 import { t } from "i18next";
+import { cancelUpload } from "../../features/post.feautures/post.project.js";
 export default function CreatePost() {
    const {selectedUsers}=useSelector(state=>state.search)
-const fullState =useSelector((state)=>state.postDetails)
+   const fullState =useSelector((state)=>state.postDetails)
 
 
   const [title, setTitle] = useState("");
@@ -56,14 +57,6 @@ useEffect(()=>{
     mediaType
   }))
 },[title,shortDescription,fullDescription,selectedFiles,mediaType,tags,video,mediaType])
-
-
-
-
-
-
-
-
 
 
   const handleUploadClick = () => {
@@ -281,9 +274,7 @@ useEffect(()=>{
           <button type="submit" className={`flex-1 px-4 py-2 bg-gradient-to-r from-[#4fc3f7] to-[#0288d1] text-white rounded-xl text-sm hover:opacity-90 transition duration-200 ${isSubmitting ? "loading" : ""}`} disabled={isSubmitting}>
             <Sparkles className="w-5 h-5 mr-2" /> {isSubmitting ? t('posts.creating') : t('posts.publish')}
           </button>
-          <button type="button" className="flex-1 px-4 py-2 border border-[#bcd7f5] rounded-xl text-[#1a1f36] hover:bg-[#f0f7ff] transition-all duration-200" onClick={() => {
-            setTitle(""); setShortDescription(""); setFullDescription(""); setTags([]); setTagInput(""); setSelectedFiles([]); setMediaType(""); toast("Cleared 🗑️");
-          }}>
+          <button type="button" className="flex-1 px-4 py-2 border border-[#bcd7f5] rounded-xl text-[#1a1f36] hover:bg-[#f0f7ff] transition-all duration-200" onClick={() => dispatch(cancelUpload())}>
             <X className="w-5 h-5 mr-2" /> {t('posts.clear')}
           </button>
         </div>

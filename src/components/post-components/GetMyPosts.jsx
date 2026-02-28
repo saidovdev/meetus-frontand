@@ -7,7 +7,7 @@ import { t } from "i18next";
 import { changePage } from "../../features/navigator.features/navigator";
 export default function GetMyPosts() {
   const dispatch = useDispatch();
-  const { getproject_loading, myprojects } = useSelector((state) => state.project);
+  const { getproject_loading, myprojects,getproject_reportError } = useSelector((state) => state.project);
 
   useEffect(() => {
     dispatch(get_myproject());
@@ -39,7 +39,7 @@ export default function GetMyPosts() {
       </div>
     );
 
-if (!myprojects?.posts?.length)
+if (!myprojects?.posts?.length && !getproject_reportError)
   return (
     <div className="flex flex-col items-center justify-center py-16 space-y-6">
       <p className="text-2xl sm:text-3xl font-semibold text-gray-800">
@@ -61,7 +61,6 @@ if (!myprojects?.posts?.length)
       </button>
     </div>
   );
-console.log(myprojects.posts);
 
 
   return (

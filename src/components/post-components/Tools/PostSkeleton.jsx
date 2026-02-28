@@ -1,32 +1,37 @@
-export const PostSkeleton=()=>{
-     return (
-    <div className="w-full max-w-[360px] bg-base-100 rounded-2xl shadow-md p-4 mx-auto mb-6">
-      
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-4">
-        <div className="skeleton w-10 h-10 rounded-full"></div>
-        <div className="flex-1">
-          <div className="skeleton h-4 w-24 mb-2"></div>
-          <div className="skeleton h-3 w-16"></div>
+export const PostSkeleton = () => {
+  return (
+    <div className="w-full max-w-[420px] bg-white rounded-2xl shadow-lg p-6 mx-auto mb-8">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-14 h-14 rounded-full animate-shimmer" />
+        <div className="flex-1 space-y-3">
+          <div className="h-5 w-40 rounded-lg animate-shimmer" />
+          <div className="h-4 w-24 rounded animate-shimmer" />
         </div>
       </div>
 
-      {/* Media (image / video) */}
-      <div className="skeleton w-full h-48 rounded-xl mb-4"></div>
+      <div className="w-full h-64 rounded-2xl mb-6 animate-shimmer" />
 
-      {/* Actions */}
-      <div className="flex gap-4 mb-3">
-        <div className="skeleton h-6 w-6 rounded-md"></div>
-        <div className="skeleton h-6 w-6 rounded-md"></div>
-        <div className="skeleton h-6 w-6 rounded-md"></div>
+      <div className="flex justify-around mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded animate-shimmer" />
+          <div className="h-4 w-16 rounded animate-shimmer" />
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded animate-shimmer" />
+          <div className="h-4 w-16 rounded animate-shimmer" />
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded animate-shimmer" />
+          <div className="h-4 w-16 rounded animate-shimmer" />
+        </div>
       </div>
 
-      {/* Text */}
-      <div className="space-y-2">
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-5/6"></div>
+      <div className="space-y-4">
+        <div className="h-5 w-full rounded-lg animate-shimmer" />
+        <div className="h-5 w-11/12 rounded-lg animate-shimmer" />
+        <div className="h-5 w-9/12 rounded-lg animate-shimmer" />
+        <div className="h-5 w-3/4 rounded-lg animate-shimmer" />
       </div>
-
     </div>
   );
-}
+};

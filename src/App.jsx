@@ -27,15 +27,55 @@ import Collaborators from './pages/posts.pages/Collaborators.jsx'
 import AddLinksForPost from './components/post-components/Tools/AddLinksForPost.jsx'
 import AddCategoryForPostComponent from './components/post-components/Tools/AddCategoryForPost.jsx'
 import { useNavigate } from 'react-router-dom'
+import NotificationCard from './units/Notication/NotificationBox.jsx'
 import PostViewPage from './pages/posts.pages/PostViewPage.jsx'
+import { socket } from './config/socket.io.js'
+import { setOnlineUsers } from './features/notification.features/post.notifictaion/online.user.js'
+import { Toaster as SonnerToaster } from 'sonner'
+import NotificationBox from './components/notification/NoticiationBox/NotificationBox.jsx'
+import UpdatePost from './pages/posts.pages/UpdatePost.jsx'
 function App() {
   const userData=useSelector(state=>state.user)
+const onlineData =useSelector(state=>state.onlineUsers)
 
   const navigate=useNavigate()
   const dispatch=useDispatch()
+
+  useEffect(() => {
+  socket.on("connect", () => {
+    console.log("socket connected:", socket.id);
+  });
+
+  socket.on("connect_error", (err) => {
+    console.log(" socket error:", err.message);
+  });
+}, []);
+
+
     useEffect(()=>{
+
+
      dispatch(checkUserAuth())
-   },[checkUserAuth,navigate])
+   },[dispatch])
+
+useEffect(()=>{
+  if(userData?.user?._id){
+    socket.emit("user-online", userData.user._id);
+  }
+},[userData?.user?._id]);
+
+
+
+useEffect(()=>{
+  socket.on("online-users",(userIds)=>{
+    dispatch(setOnlineUsers(userIds))
+  })
+
+  return ()=>{
+    socket.off('online-users')
+  }
+},[])
+
   //        useEffect(() => {
   //   if (!userData?.loading) {
   //     if (userData.user?.email) {
@@ -44,11 +84,16 @@ function App() {
 
   //   }
   // }, [userData?.loading, userData.user?.email, navigate]);
-  console.log(userData.user);
   
   return (  
     <>
     <Toaster position='top-rigth' reverseOrder={false} />
+      <SonnerToaster
+        position="top-center"
+        expand
+        richColors
+        closeButton
+       />
       <Routes>
         <Route path={router.intro} element={<Introduction/>}/>
         <Route path={router.selectType} element={<SelectUserType/>} />
@@ -71,6 +116,9 @@ function App() {
         <Route  path={router.addpostlink} element={<AddLinksForPost/>}/>
         <Route  path={router.addcategorypost} element={<AddCategoryForPostComponent/>}/>
         <Route path={router.postView} element={<PostViewPage/>} />
+        <Route path={router.notification} element={<NotificationBox/>}/>
+        <Route path={router.updatePost} element={<UpdatePost/>}/>
+
 
 
 

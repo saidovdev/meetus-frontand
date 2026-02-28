@@ -30,8 +30,8 @@ export const createProject_images = createAsyncThunk(
   "create_project_images/project",
   async ({ file, data }, { rejectWithValue, getState, dispatch }) => {
     try {
-      console.log("s");
-      console.log(data);
+      console.log(data,file);
+
       const formData = new FormData();
       file.forEach((image) => {
         formData.append("images", image);
@@ -95,8 +95,8 @@ export const createProject_video = createAsyncThunk(
       dispatch(removeAll());
       return response.data;
     } catch (error) {
-      const status = error.response?.status;
-      const message = error.message;
+      const status = error?.response?.status;
+      const message = error?.message;
       if (status === 400 || status === 500) {
         return rejectWithValue(t("serverError.error"));
       }
@@ -131,9 +131,7 @@ const projectSlice = createSlice({
       state.abortController = action.payload.controller;
     },
     cancelUpload: (state, action) => {
-      if (state.abortController) {
-        state.abortController;
-      }
+    
       state.progress = 0;
       state.project_loading = false;
     },

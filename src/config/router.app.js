@@ -20,6 +20,10 @@ const router = {
   addcategorypost: "/add-category-post",
   postViewLink: (postId) => `/postView/${postId}`,
   postView: "/postView/:postId",
+  notification:'/notification',
+  updatePost:'/updatePost',
+  updatePostLink:(postId)=>`/updatePostLink/${postId  }`
+
 };
 
 export default router;

@@ -20,7 +20,7 @@ export const getCollaborator = createAsyncThunk(
 const initialState = {
   loading: false,
   success: false,
-  collaborators: [],
+  collaborators: [],  
   reportError: "",
 };
 
@@ -37,10 +37,12 @@ const collaboratorNotificationSlice = createSlice({
         state.collaborators = [];
       })
       .addCase(getCollaborator.fulfilled, (state, action) => {
+        console.log('d');
+        
         state.loading = false;
         state.success = true;
         state.reportError = "";
-        state.collaborators = action.payload.collaborator;
+        state.collaborators = action.payload.collaborators || [];
       })
       .addCase(getCollaborator.rejected, (state, action) => {
         state.loading = false;

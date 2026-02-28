@@ -1,14 +1,16 @@
 import { useState,useEffect,useRef } from "react";
 import { t } from "i18next";
-import { X } from "lucide-react"
+import { Loader2, X } from "lucide-react"
 import toast from "react-hot-toast";
 import { useDispatch,useSelector } from "react-redux";
 import profileImg from '../../../images/profile.jpeg'
 import { useNavigate } from "react-router-dom";
 import router from "../../../config/router.app";
+import { accept_post } from "../../../features/notification.features/post.notifictaion/collaborator.accept.js";
 export default function CollaboratorNotification({collaborator}) {
   const navigate=useNavigate()
  const dispatch=useDispatch() 
+ const {loading,reportError}=useSelector(state=>state.collaboratorPost)
  
   return (
 <div className="
@@ -81,8 +83,8 @@ export default function CollaboratorNotification({collaborator}) {
       hover:bg-blue-700
       transition
       whitespace-nowrap
-    ">
-      {t('posts.acceptPost')}
+    " onClick={()=>dispatch(accept_post({id:collaborator?.collaboratorId,postId:collaborator.postId}))}>
+    {loading ? <Loader2 className="text-white"/>:   t('posts.acceptPost')}
     </button>
   </div>
 
